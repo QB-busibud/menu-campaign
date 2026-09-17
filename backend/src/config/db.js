@@ -5,7 +5,7 @@ let isMongoConnected = false;
 const connectDB = async () => {
   const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/prospect_hub';
   try {
-    
+    // Attempt fast connection with short timeout so server does not hang if Mongo is not running
     await mongoose.connect(mongoUri, {
       serverSelectionTimeoutMS: 2000
     });

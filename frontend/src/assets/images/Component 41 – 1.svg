@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="190" height="49" viewBox="0 0 190 49">
+  <defs>
+    <filter id="Rectangle_42548" x="0" y="0" width="190" height="49" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#c6e2fc"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Component_41_1" data-name="Component 41 – 1" transform="translate(9 6)">
+    <g transform="matrix(1, 0, 0, 1, -9, -6)" filter="url(#Rectangle_42548)">
+      <g id="Rectangle_42548-2" data-name="Rectangle 42548" transform="translate(9 6)" fill="#d9edff" stroke="#0b68bb" stroke-width="1">
+        <rect width="172" height="31" rx="6" stroke="none"/>
+        <rect x="0.5" y="0.5" width="171" height="30" rx="5.5" fill="none"/>
+      </g>
+    </g>
+    <text id="Send_Communication" data-name="Send Communication" transform="translate(29 20)" font-size="12" font-family="Poppins-Medium, Poppins" font-weight="500"><tspan x="0" y="0">Send Communication</tspan></text>
+    <g id="mail-notification-outline" transform="translate(8 9)">
+      <path id="Path_10265" data-name="Path 10265" d="M12.46,4.8H3.879A1.475,1.475,0,0,0,2.4,6.27v8.82a1.475,1.475,0,0,0,1.479,1.47H16.26a1.475,1.475,0,0,0,1.479-1.47V10.055" transform="translate(-2.4 -4.005)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Path_10266" data-name="Path 10266" d="M5.6,8l5.45,4.792,3.293-2.81" transform="translate(-3.705 -4.125)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <circle id="Ellipse_3790" data-name="Ellipse 3790" cx="2.25" cy="2.25" r="2.25" transform="translate(11.402)"/>
+    </g>
+  </g>
+</svg>

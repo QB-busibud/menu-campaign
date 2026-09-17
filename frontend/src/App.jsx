@@ -7,22 +7,23 @@ import { FloatingDock } from './components/Layout/FloatingDock';
 import { ConversationModal } from './components/Modals/ConversationModal';
 import { LeadGenModal } from './components/Modals/LeadGenModal';
 
-function AppContent() {
+function MainAppLayout() {
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#FAFAFA] font-poppins text-slate-800 select-none">
-      
+    <div className="flex h-screen w-screen overflow-hidden bg-[#FAFAFA] font-sans text-slate-800 select-none">
+      {/* 1. Leftmost Mini Navigation Strip (Logo, pink table icon, speaker, gear, online avatar) */}
       <MiniNav />
 
-      
+      {/* 2. Secondary Collapsible Navigation & Analytics Sidebar */}
       <SidebarContainer />
 
-      
-      <SpreadsheetTable />
+      {/* 3. Center Main Spreadsheet Table View */}
+      <div className="flex-1 flex flex-col h-full overflow-hidden relative">
+        <SpreadsheetTable />
+        {/* Floating Quick Access Dock */}
+        <FloatingDock />
+      </div>
 
-      
-      <FloatingDock />
-
-      
+      {/* 4. Interactive Modals */}
       <ConversationModal />
       <LeadGenModal />
     </div>
@@ -32,7 +33,7 @@ function AppContent() {
 export default function App() {
   return (
     <AppProvider>
-      <AppContent />
+      <MainAppLayout />
     </AppProvider>
   );
 }

@@ -7,21 +7,25 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        poppins: ['Poppins', 'Inter', 'sans-serif'],
       },
       colors: {
         brand: {
-          blue: '#0B68BB',
-          'blue-light': '#EBF4FF',
-          'blue-card': '#F0F7FF',
-          pink: '#FF8499',
-          'pink-light': '#FFE8EC',
-          green: '#22C55E',
-          'green-light': '#DCFCE7',
-          gray: '#707070',
-          'gray-light': '#F5F5F5',
-          'gray-border': '#E5E7EB',
-          dark: '#1E293B',
+          blue: '#0066FF',
+          'blue-dark': '#1877F2',
+          'blue-light': '#EFF6FF',
+          'blue-border': '#DBEAFE',
+          'blue-text': '#1D4ED8',
+          green: '#10B981',
+          'green-dark': '#00C853',
+          'green-light': '#ECFDF5',
+          'green-text': '#065F46',
+          canvas: '#F8F9FA',
+          border: '#E5E7EB',
+          text: '#111827',
+          muted: '#6B7280',
+          placeholder: '#9CA3AF',
         }
       }
     },

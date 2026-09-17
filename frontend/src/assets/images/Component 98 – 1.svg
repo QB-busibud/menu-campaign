@@ -1,0 +1,9 @@
+<svg id="Component_98_1" data-name="Component 98 – 1" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <g id="Rectangle_125" data-name="Rectangle 125" fill="#fff" stroke="#dcdcdc" stroke-width="1">
+    <rect width="30" height="30" rx="4" stroke="none"/>
+    <rect x="0.5" y="0.5" width="29" height="29" rx="3.5" fill="none"/>
+  </g>
+  <g id="filter" transform="translate(9 9)">
+    <path id="Path_11468" data-name="Path 11468" d="M8.52,13.52h-2a1,1,0,0,1-1-1v-3.8L1.815,5.02a1,1,0,0,1-.295-.7V2.52a1,1,0,0,1,1-1h10a1,1,0,0,1,1,1v1.8a1,1,0,0,1-.295.7L9.52,8.725v3.8A1,1,0,0,1,8.52,13.52Zm-6-11v1.8l4,4V12.52h2V8.315l4-4V2.52Z" transform="translate(-1.52 -1.52)"/>
+  </g>
+</svg>

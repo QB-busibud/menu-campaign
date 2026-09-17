@@ -41,8 +41,8 @@ app.get('/api/health', (req, res) => {
 const startServer = async () => {
   await connectDB();
   app.listen(PORT, () => {
-    console.log(` Server listening on http://localhost:${PORT}`);
-    console.log(` API endpoints available at http://localhost:${PORT}/api/`);
+    console.log(`🚀 Server listening on http://localhost:${PORT}`);
+    console.log(`📊 API endpoints available at http://localhost:${PORT}/api/`);
   });
 };
 

@@ -8,186 +8,208 @@ export const CampaignAnalyticsView = () => {
     setTimeframe,
     isDropdownOpen,
     setIsDropdownOpen,
-    openDrillDown,
-    sidebarLoading
+    openOpenedDrilldown,
+    sidebarLoading,
+    metricsData
   } = useApp();
 
-  const is30Days = timeframe === 'last_30_days';
-
   return (
-    <div className="flex-1 overflow-y-auto p-4 space-y-4 text-slate-800 select-none">
+    <div className="flex-1 overflow-y-auto no-scrollbar p-4 space-y-3.5 text-slate-800 select-none">
       {/* Title & Subtitle */}
       <div>
         <h2 className="text-xs font-bold text-slate-800 uppercase tracking-tight">
-          {is30Days ? 'ALL CAMPAIGNS ANALYTICS (600)' : 'ALL CAMPAIGNS ANALYTICS (1200)'}
+          {metricsData.title}
         </h2>
         <p className="text-[11px] text-slate-400 mt-0.5">
           Combined performance across all campaigns
         </p>
       </div>
 
-      {/* Timeframe Selector Dropdown */}
+      {/* Timeframe Dropdown (Screenshot 1, 2, 3, 5) */}
       <div className="relative">
         <div
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="w-full flex items-center justify-between px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-700 cursor-pointer hover:border-brand-blue transition-colors shadow-2xs"
+          className="w-full flex items-center justify-between px-3 py-2 bg-white border border-[#DCDCDC] rounded-lg text-xs font-medium text-slate-700 cursor-pointer hover:border-[#0B68BB] transition-colors shadow-2xs"
         >
-          <span>
-            {timeframe === 'last_30_days' ? 'Last 30 days' : timeframe === 'last_7_days' ? 'Last 7 days' : 'All time'}
-          </span>
+          <span>{timeframe}</span>
           <ChevronDown size={14} className="text-slate-400" />
         </div>
 
-        {/* Dropdown Options */}
+        {/* Dropdown Options Menu (Screenshot 3) */}
         {isDropdownOpen && (
           <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-200 rounded-lg shadow-lg z-30 py-1 text-xs font-medium">
-            <div
-              onClick={() => setTimeframe('all_time')}
-              className={`px-3 py-1.5 cursor-pointer ${timeframe === 'all_time' ? 'bg-slate-100 text-brand-blue font-semibold' : 'hover:bg-slate-50 text-slate-700'}`}
-            >
-              All time
-            </div>
-            <div
-              onClick={() => setTimeframe('last_30_days')}
-              className={`px-3 py-1.5 cursor-pointer ${timeframe === 'last_30_days' ? 'bg-slate-100 text-brand-blue font-semibold' : 'hover:bg-slate-50 text-slate-700'}`}
-            >
-              Last 30 days
-            </div>
-            <div
-              onClick={() => setTimeframe('last_7_days')}
-              className={`px-3 py-1.5 cursor-pointer ${timeframe === 'last_7_days' ? 'bg-slate-100 text-brand-blue font-semibold' : 'hover:bg-slate-50 text-slate-700'}`}
-            >
-              Last 7 days
-            </div>
+            {['All time', 'Last 30 days', 'Last 7 days'].map(opt => (
+              <div
+                key={opt}
+                onClick={() => setTimeframe(opt)}
+                className={`px-3 py-2 cursor-pointer transition-colors ${
+                  timeframe === opt
+                    ? 'bg-slate-100 text-[#0B68BB] font-semibold'
+                    : 'hover:bg-slate-50 text-slate-700'
+                }`}
+              >
+                {opt}
+              </div>
+            ))}
           </div>
         )}
       </div>
 
-      {/* Loading state */}
+      {/* Loading state (Screenshot 4: 5-bar animated equalizer wave) */}
       {sidebarLoading ? (
-        <div className="py-16 flex flex-col items-center justify-center space-y-3">
-          <div className="flex space-x-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-300 loader-dot" />
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-300 loader-dot" />
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-300 loader-dot" />
+        <div className="py-24 flex flex-col items-center justify-center space-y-4">
+          <div className="flex items-center space-x-1.5 h-7">
+            <span className="wave-bar" />
+            <span className="wave-bar" />
+            <span className="wave-bar" />
+            <span className="wave-bar" />
+            <span className="wave-bar" />
           </div>
-          <span className="text-xs text-slate-400">Loading campaign analytics...</span>
         </div>
       ) : (
         <>
-          {/* Top Reply Percentage Card */}
+          {/* Top Primary Reply percentage card (Screenshot 2, 5) */}
           <div className="p-3.5 rounded-xl bg-[#EAF3FD] border border-blue-100 space-y-1">
-            <div className="text-xs font-semibold text-brand-blue">
+            <div className="text-xs font-bold text-[#0B68BB]">
               Reply percentage
             </div>
-            <div className="text-xl font-bold text-slate-900 tracking-tight">
-              16.9 %
+            <div className="text-[22px] font-extrabold text-slate-900 tracking-tight">
+              {metricsData.replyRate}
             </div>
             <div className="text-[11px] text-slate-500">
-              298 replies from 1,842 sent
+              {metricsData.replyDetail}
             </div>
           </div>
 
-          {/* Metric Cards Grid */}
-          <div className="grid grid-cols-2 gap-2.5">
-            {/* Opened: 500 [ View -> ] */}
-            <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-1.5">
-              <div className="text-[11px] font-semibold text-brand-blue">Opened</div>
-              <div className="flex items-center justify-between">
-                <span className="text-base font-bold text-slate-900">500</span>
-                <button
-                  onClick={() => openDrillDown('opened')}
-                  className="flex items-center space-x-0.5 text-[10px] font-semibold text-slate-700 hover:text-brand-blue px-2 py-0.5 rounded border border-slate-200 hover:border-brand-blue transition-colors"
-                >
-                  <span>View</span>
-                  <ArrowRight size={10} />
-                </button>
+          {/* Metric Cards Grid: All time (Screen 2: 4 cards, no View tab) vs Last 30 days (Screen 5: 7 cards with View tab) */}
+          {timeframe === 'All time' ? (
+            <div className="grid grid-cols-2 gap-2">
+              {/* Open percentage */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#E5E7EB] shadow-2xs flex flex-col justify-between h-[58px]">
+                <div className="text-[11px] font-medium text-[#0B68BB]">Open percentage</div>
+                <div className="text-sm font-bold text-slate-900">{metricsData.openRate}</div>
+              </div>
+
+              {/* Opened */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#E5E7EB] shadow-2xs flex flex-col justify-between h-[58px]">
+                <div className="text-[11px] font-medium text-[#0B68BB]">Opened</div>
+                <div className="text-sm font-bold text-slate-900">{metricsData.opened}</div>
+              </div>
+
+              {/* Unsubscribed */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#E5E7EB] shadow-2xs flex flex-col justify-between h-[58px]">
+                <div className="text-[11px] font-medium text-[#0B68BB]">Unsubscribed</div>
+                <div className="text-sm font-bold text-slate-900">{metricsData.unsubscribed}</div>
+              </div>
+
+              {/* Bounced */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#E5E7EB] shadow-2xs flex flex-col justify-between h-[58px]">
+                <div className="text-[11px] font-medium text-[#0B68BB]">Bounced</div>
+                <div className="text-sm font-bold text-slate-900">{metricsData.bounced}</div>
               </div>
             </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-2">
+              {/* Opened */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#E5E7EB] shadow-2xs flex flex-col justify-between h-[58px]">
+                <div className="text-[11px] font-medium text-[#0B68BB]">Opened</div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-slate-900">{metricsData.opened}</span>
+                  <button
+                    onClick={openOpenedDrilldown}
+                    className="inline-flex items-center space-x-0.5 text-[10px] font-medium text-slate-800 bg-[#EFEFEF] hover:bg-slate-200 px-1.5 py-0.5 rounded border border-[#DCDCDC] transition-colors cursor-pointer"
+                  >
+                    <span>View</span>
+                    <span className="text-[10px] ml-0.5">→</span>
+                  </button>
+                </div>
+              </div>
 
-            {/* Open percentage: 68% */}
-            <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-1.5">
-              <div className="text-[11px] font-semibold text-brand-blue">Open percentage</div>
-              <div className="text-base font-bold text-slate-900">68%</div>
-            </div>
+              {/* Open percentage */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#E5E7EB] shadow-2xs flex flex-col justify-between h-[58px]">
+                <div className="text-[11px] font-medium text-[#0B68BB]">Open percentage</div>
+                <div className="text-sm font-bold text-slate-900">{metricsData.openRate}</div>
+              </div>
 
-            {/* Sent: 200 */}
-            <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-1.5">
-              <div className="text-[11px] font-semibold text-brand-blue">Sent</div>
-              <div className="flex items-center justify-between">
-                <span className="text-base font-bold text-slate-900">200</span>
-                <button
-                  onClick={() => openDrillDown('sent')}
-                  className="flex items-center space-x-0.5 text-[10px] font-semibold text-slate-700 hover:text-brand-blue px-2 py-0.5 rounded border border-slate-200 hover:border-brand-blue transition-colors"
-                >
-                  <span>View</span>
-                  <ArrowRight size={10} />
-                </button>
+              {/* Sent */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#E5E7EB] shadow-2xs flex flex-col justify-between h-[58px]">
+                <div className="text-[11px] font-medium text-[#0B68BB]">Sent</div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-slate-900">{metricsData.sent || 200}</span>
+                  <button
+                    onClick={openOpenedDrilldown}
+                    className="inline-flex items-center space-x-0.5 text-[10px] font-medium text-slate-800 bg-[#EFEFEF] hover:bg-slate-200 px-1.5 py-0.5 rounded border border-[#DCDCDC] transition-colors cursor-pointer"
+                  >
+                    <span>View</span>
+                    <span className="text-[10px] ml-0.5">→</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Replied */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#E5E7EB] shadow-2xs flex flex-col justify-between h-[58px]">
+                <div className="text-[11px] font-medium text-[#0B68BB]">Replied</div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-slate-900">{metricsData.replied || 250}</span>
+                  <button
+                    onClick={openOpenedDrilldown}
+                    className="inline-flex items-center space-x-0.5 text-[10px] font-medium text-slate-800 bg-[#EFEFEF] hover:bg-slate-200 px-1.5 py-0.5 rounded border border-[#DCDCDC] transition-colors cursor-pointer"
+                  >
+                    <span>View</span>
+                    <span className="text-[10px] ml-0.5">→</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Bounced */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#E5E7EB] shadow-2xs flex flex-col justify-between h-[58px]">
+                <div className="text-[11px] font-medium text-[#0B68BB]">Bounced</div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-slate-900">{metricsData.bounced}</span>
+                  <button
+                    onClick={openOpenedDrilldown}
+                    className="inline-flex items-center space-x-0.5 text-[10px] font-medium text-slate-800 bg-[#EFEFEF] hover:bg-slate-200 px-1.5 py-0.5 rounded border border-[#DCDCDC] transition-colors cursor-pointer"
+                  >
+                    <span>View</span>
+                    <span className="text-[10px] ml-0.5">→</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Website visited */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#E5E7EB] shadow-2xs flex flex-col justify-between h-[58px]">
+                <div className="text-[11px] font-medium text-[#0B68BB]">Website visited</div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-slate-900">{metricsData.websiteVisited || 200}</span>
+                  <button
+                    onClick={openOpenedDrilldown}
+                    className="inline-flex items-center space-x-0.5 text-[10px] font-medium text-slate-800 bg-[#EFEFEF] hover:bg-slate-200 px-1.5 py-0.5 rounded border border-[#DCDCDC] transition-colors cursor-pointer"
+                  >
+                    <span>View</span>
+                    <span className="text-[10px] ml-0.5">→</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Unsubscribed */}
+              <div className="p-2.5 rounded-lg bg-white border border-[#E5E7EB] shadow-2xs flex flex-col justify-between h-[58px]">
+                <div className="text-[11px] font-medium text-[#0B68BB]">Unsubscribed</div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-bold text-slate-900">{metricsData.unsubscribed}</span>
+                  <button
+                    onClick={openOpenedDrilldown}
+                    className="inline-flex items-center space-x-0.5 text-[10px] font-medium text-slate-800 bg-[#EFEFEF] hover:bg-slate-200 px-1.5 py-0.5 rounded border border-[#DCDCDC] transition-colors cursor-pointer"
+                  >
+                    <span>View</span>
+                    <span className="text-[10px] ml-0.5">→</span>
+                  </button>
+                </div>
               </div>
             </div>
-
-            {/* Replied: 250 */}
-            <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-1.5">
-              <div className="text-[11px] font-semibold text-brand-blue">Replied</div>
-              <div className="flex items-center justify-between">
-                <span className="text-base font-bold text-slate-900">250</span>
-                <button
-                  onClick={() => openDrillDown('replied')}
-                  className="flex items-center space-x-0.5 text-[10px] font-semibold text-slate-700 hover:text-brand-blue px-2 py-0.5 rounded border border-slate-200 hover:border-brand-blue transition-colors"
-                >
-                  <span>View</span>
-                  <ArrowRight size={10} />
-                </button>
-              </div>
-            </div>
-
-            {/* Bounced: 250 */}
-            <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-1.5">
-              <div className="text-[11px] font-semibold text-brand-blue">Bounced</div>
-              <div className="flex items-center justify-between">
-                <span className="text-base font-bold text-slate-900">250</span>
-                <button
-                  onClick={() => openDrillDown('bounced')}
-                  className="flex items-center space-x-0.5 text-[10px] font-semibold text-slate-700 hover:text-brand-blue px-2 py-0.5 rounded border border-slate-200 hover:border-brand-blue transition-colors"
-                >
-                  <span>View</span>
-                  <ArrowRight size={10} />
-                </button>
-              </div>
-            </div>
-
-            {/* Website visited: 200 */}
-            <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-1.5">
-              <div className="text-[11px] font-semibold text-brand-blue">Website visited</div>
-              <div className="flex items-center justify-between">
-                <span className="text-base font-bold text-slate-900">200</span>
-                <button
-                  onClick={() => openDrillDown('website_visited')}
-                  className="flex items-center space-x-0.5 text-[10px] font-semibold text-slate-700 hover:text-brand-blue px-2 py-0.5 rounded border border-slate-200 hover:border-brand-blue transition-colors"
-                >
-                  <span>View</span>
-                  <ArrowRight size={10} />
-                </button>
-              </div>
-            </div>
-
-            {/* Unsubscribed: 250 */}
-            <div className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-1.5 col-span-1">
-              <div className="text-[11px] font-semibold text-brand-blue">Unsubscribed</div>
-              <div className="flex items-center justify-between">
-                <span className="text-base font-bold text-slate-900">250</span>
-                <button
-                  onClick={() => openDrillDown('unsubscribed')}
-                  className="flex items-center space-x-0.5 text-[10px] font-semibold text-slate-700 hover:text-brand-blue px-2 py-0.5 rounded border border-slate-200 hover:border-brand-blue transition-colors"
-                >
-                  <span>View</span>
-                  <ArrowRight size={10} />
-                </button>
-              </div>
-            </div>
-          </div>
+          )}
         </>
       )}
     </div>
   );
 };
+

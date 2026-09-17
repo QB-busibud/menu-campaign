@@ -1,109 +1,146 @@
 import React from 'react';
-import { ArrowLeft, MessageSquare } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 export const UserTicketsList = () => {
   const {
     sidebarLoading,
-    backToDrillDown,
+    setAnalyticsView,
+    selectedTicketId,
+    setSelectedTicketId,
     setActiveTicket,
-    activeWorksheetId
+    activeWorksheetName
   } = useApp();
 
+  // Cards matching Adobe XD Screen 9 (Web 1280 - 144)
   const tickets = [
     {
-      id: 't1',
+      id: 1,
       user: 'John',
       email: 'John@gmail.com',
-      ticketNumber: 'TICK-8021',
-      snippet: 'Enquiry regarding enterprise credit limits and automated LinkedIn exports.'
+      campaignName: 'Sales campaign',
+      status: 'Active',
+      connections: '500+'
     },
     {
-      id: 't2',
-      user: 'John1',
+      id: 2,
+      user: 'Johnl',
       email: 'Johndoe@gmail.com',
-      ticketNumber: 'TICK-8022',
-      snippet: 'Testing the webhook callback pipeline for prospect synchronization.'
+      campaignName: 'Sales campaign',
+      status: 'Active',
+      connections: '380'
     },
     {
-      id: 't3',
+      id: 3,
       user: 'user name',
       email: 'Username@gmail.com',
-      ticketNumber: 'TICK-8023',
-      snippet: 'Scheduling product walkthrough demo for outreach team.'
+      campaignName: 'Outreach 04',
+      status: 'Active',
+      connections: '290'
     },
     {
-      id: 't4',
+      id: 4,
       user: 'Doe',
       email: 'Doe@gmail.com',
-      ticketNumber: 'TICK-8024',
-      snippet: 'Copy Transferred Ticket - Hello this is other mail confirmation.'
+      campaignName: 'Sales campaign',
+      status: 'Active',
+      connections: '420'
+    },
+    {
+      id: 5,
+      user: 'John',
+      email: 'John@gmail.com',
+      campaignName: 'Finance Outreach',
+      status: 'Active',
+      connections: '330'
+    },
+    {
+      id: 6,
+      user: 'Johnl',
+      email: 'Johndoe@gmail.com',
+      campaignName: 'Sales campaign',
+      status: 'Active',
+      connections: '410'
     }
   ];
 
+  const handleViewConversation = (t) => {
+    setSelectedTicketId(t.id);
+    setActiveTicket(t);
+  };
+
   return (
-    <div className="flex-1 overflow-y-auto p-4 space-y-3.5 select-none">
+    <div className="flex-1 overflow-y-auto no-scrollbar p-4 space-y-3 select-none">
       {/* Header: Back & Worksheet Title */}
       <div className="space-y-1">
         <button
-          onClick={backToDrillDown}
-          className="flex items-center space-x-1 text-xs font-bold text-brand-blue hover:underline cursor-pointer"
+          onClick={() => setAnalyticsView('drilldown')}
+          className="flex items-center space-x-1 text-xs font-bold text-[#0B68BB] hover:underline cursor-pointer"
         >
           <ArrowLeft size={13} />
           <span>Back</span>
         </button>
 
         <h2 className="text-xs font-bold text-slate-800 uppercase tracking-tight">
-          {activeWorksheetId === 'ws-04' ? 'UNTITLED WORKSHEET 04' : 'UNTITLED WORKSHEET 06'}
+          {activeWorksheetName}
         </h2>
       </div>
 
       {sidebarLoading ? (
-        <div className="py-20 flex flex-col items-center justify-center space-y-3">
-          <div className="flex space-x-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-300 loader-dot" />
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-300 loader-dot" />
-            <div className="w-2.5 h-2.5 rounded-full bg-slate-300 loader-dot" />
+        <div className="py-24 flex flex-col items-center justify-center space-y-4">
+          <div className="flex items-center space-x-1.5 h-7">
+            <span className="wave-bar" />
+            <span className="wave-bar" />
+            <span className="wave-bar" />
+            <span className="wave-bar" />
+            <span className="wave-bar" />
           </div>
-          <span className="text-xs text-slate-400">Loading conversation tickets...</span>
         </div>
       ) : (
         <>
           <div className="flex items-center justify-between pt-1">
-            <span className="text-sm font-bold text-brand-blue">Opened</span>
+            <span className="text-sm font-bold text-[#0B68BB]">Opened</span>
             <span className="text-xs font-semibold text-slate-500">17</span>
           </div>
 
-          {/* Tickets Cards */}
-          <div className="space-y-2.5">
-            {tickets.map((t) => (
-              <div
-                key={t.id}
-                className="p-3 rounded-xl bg-white border border-slate-200 shadow-2xs space-y-2 hover:border-slate-300 transition-colors"
-              >
-                <div className="space-y-0.5 text-xs">
-                  <div>
-                    <span className="text-slate-400 text-[11px]">User name: </span>
-                    <span className="font-semibold text-slate-900 underline">{t.user}</span>
+          {/* User Cards */}
+          <div className="space-y-2">
+            {tickets.map((t) => {
+              const isSelected = selectedTicketId === t.id;
+              return (
+                <div
+                  key={t.id}
+                  className="p-3 rounded-xl bg-white border border-[#E5E7EB] shadow-2xs space-y-2 hover:border-[#0B68BB]/50 transition-colors"
+                >
+                  <div className="space-y-0.5 text-xs">
+                    <div>
+                      <span className="text-slate-500 text-[11px]">User name: </span>
+                      <span className="font-semibold text-slate-900 underline cursor-pointer decoration-slate-400">
+                        {t.user}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-slate-500 text-[11px]">Email: </span>
+                      <span className="font-medium text-slate-700">{t.email}</span>
+                    </div>
                   </div>
+
+                  {/* Exact Adobe XD View Conversation Pill Button */}
                   <div>
-                    <span className="text-slate-400 text-[11px]">Email: </span>
-                    <span className="font-medium text-slate-700">{t.email}</span>
+                    <button
+                      onClick={() => handleViewConversation(t)}
+                      className="inline-flex items-center justify-center h-[22px] px-3.5 rounded-full text-[10px] font-medium transition-all cursor-pointer shadow-2xs bg-white border border-[#0B68BB] text-[#0B68BB] hover:bg-[#0B68BB] hover:text-white"
+                    >
+                      View conversation
+                    </button>
                   </div>
                 </div>
-
-                <button
-                  onClick={() => setActiveTicket(t)}
-                  className="w-full flex items-center justify-center space-x-1.5 py-1.5 px-3 rounded-lg border border-brand-blue/40 text-brand-blue hover:bg-brand-blue/5 text-xs font-semibold transition-colors shadow-2xs"
-                >
-                  <MessageSquare size={13} />
-                  <span>View conversation</span>
-                </button>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </>
       )}
     </div>
   );
 };
+

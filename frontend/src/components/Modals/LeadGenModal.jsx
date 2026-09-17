@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Check } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
 export const LeadGenModal = () => {
@@ -27,33 +27,33 @@ export const LeadGenModal = () => {
         {isSettings ? (
           <div className="space-y-3 text-xs text-slate-600">
             <label className="flex items-center space-x-2 cursor-pointer">
-              <input type="checkbox" defaultChecked className="rounded text-brand-blue" />
+              <input type="checkbox" defaultChecked className="rounded text-[#0B68BB]" />
               <span>Auto-verify work email addresses during enrichment</span>
             </label>
             <label className="flex items-center space-x-2 cursor-pointer">
-              <input type="checkbox" defaultChecked className="rounded text-brand-blue" />
+              <input type="checkbox" defaultChecked className="rounded text-[#0B68BB]" />
               <span>Prioritize 1st & 2nd degree LinkedIn network connections</span>
             </label>
             <label className="flex items-center space-x-2 cursor-pointer">
-              <input type="checkbox" defaultChecked className="rounded text-brand-blue" />
+              <input type="checkbox" defaultChecked className="rounded text-[#0B68BB]" />
               <span>Sync newly enrolled leads directly to active sales campaigns</span>
             </label>
           </div>
         ) : (
           <div className="space-y-2 text-xs">
             {['SaaS B2B Outbound Cadence', 'VC & Angel Investor Outreach', 'Talent Recruitment Pipeline'].map((uc, i) => (
-              <div key={i} className="p-2.5 rounded-lg border border-slate-200 hover:border-brand-blue cursor-pointer transition-colors flex items-center justify-between">
+              <div key={i} className="p-2.5 rounded-lg border border-slate-200 hover:border-[#0B68BB] cursor-pointer transition-colors flex items-center justify-between">
                 <span className="font-medium text-slate-800">{uc}</span>
-                <span className="text-[10px] text-brand-blue font-semibold">Use Template</span>
+                <span className="text-[10px] text-[#0B68BB] font-semibold">Use Template</span>
               </div>
             ))}
           </div>
         )}
 
-        <div className="pt-2 flex justify-end space-x-2">
+        <div className="pt-2 flex justify-end">
           <button
             onClick={() => { setShowSettingsModal(false); setShowUseCasesModal(false); }}
-            className="px-4 py-1.5 rounded-lg bg-brand-blue text-white text-xs font-semibold shadow-xs"
+            className="px-4 py-1.5 rounded-lg bg-[#0B68BB] text-white text-xs font-semibold shadow-xs"
           >
             Save Changes
           </button>

@@ -3,7 +3,7 @@ const store = require('../data/dbStore');
 exports.getWorksheets = (req, res) => {
   try {
     const worksheets = store.getWorksheets();
-   
+    // Group into categories: Today, Yesterday, This Week, This Month, Older
     const categorized = {
       today: worksheets.filter(w => w.category === 'Today'),
       yesterday: worksheets.filter(w => w.category === 'Yesterday'),
